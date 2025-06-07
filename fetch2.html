@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 30%;
+            border: 2px solid black;
+            margin: auto;
+            padding: 20px;
+            >*{
+                width: 100%;
+                text-align: center;
+            }
+        }
+        button{
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="box">
+    <img src="" alt="">
+    <h2></h2>
+    <h3></h3>
+    <b></b>
+</div>
+<button id="btn">click to generate!</button>
+</body>
+<script>
+    const box = document.querySelector('.box')
+    const btn = document.querySelector('#btn')
+
+    btn.addEventListener('click', ()=>{
+        fetch('https://randomuser.me/api/?results=1')
+        .then(res => {
+            if(res.ok) return res.json()
+            Promise.reject(err)
+        })
+        .then(data => {
+            console.log(data.results[0].picture.large);
+            box.children[0].setAttribute('src', data.results[0].picture.large)
+            box.children[1].innerHTML=data.results[0].name.first + " - " + data.results[0].name.last
+            box.children[2].innerHTML=data.results[0].email
+            box.children[3].innerHTML=data.results[0].location.postcode
+        })
+    })
+
+</script>
+
+</html>
